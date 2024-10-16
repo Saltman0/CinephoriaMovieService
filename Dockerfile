@@ -16,7 +16,8 @@ ENV NODE_ENV production
 
 # Install pnpm.
 RUN --mount=type=cache,target=/root/.npm \
-    npm install -g pnpm@${PNPM_VERSION}
+    npm install -g pnpm@${PNPM_VERSION} \
+    pnpm install -g ts-node
 
 WORKDIR /app
 
@@ -33,7 +34,7 @@ RUN --mount=type=bind,source=package.json,target=package.json \
 USER node
 
 # Copy the rest of the source files into the image.
-COPY . /app
+COPY . .
 
 # Expose the port that the application listens on.
 EXPOSE 3000

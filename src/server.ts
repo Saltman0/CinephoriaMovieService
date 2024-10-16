@@ -1,4 +1,5 @@
-const express = require('express');
+import express from "express";
+
 const app = express();
 const port = 3000;
 
@@ -12,11 +13,11 @@ let movies = [
   { id: 3, title: "The Matrix", director: "The Wachowskis", year: 1999 },
 ];
 
-app.get("/movies", (req, res) => {
+app.get("/movies", (req: any, res: any) => {
   res.json(movies);
 });
 
-app.get("/movies/:id", (req, res) => {
+app.get("/movies/:id", (req: any, res: any) => {
   res.json(movies);
 });
 

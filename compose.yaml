@@ -15,15 +15,17 @@ services:
       NODE_ENV: production
     ports:
       - "3000:3000"
-    develop:
-      watch:
-        - action: sync+restart
-          path: .
-          target: /src/app
+    volumes:
+      - .:/app
+    #develop:
+      #watch:
+        #- action: sync+restart
+          #path: .
+          #target: /src/app
 
-        - action: rebuild
-          path: package.json
-          target: /app
+        #- action: rebuild
+          #path: package.json
+          #target: /app
   mongodb:
     image: mongo
     ports:
