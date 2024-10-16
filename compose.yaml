@@ -19,7 +19,7 @@ services:
       watch:
         - action: sync+restart
           path: .
-          target: /app
+          target: /src/app
 
         - action: rebuild
           path: package.json
