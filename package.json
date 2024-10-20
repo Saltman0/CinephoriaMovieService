@@ -2,48 +2,29 @@
   "name": "CinephoriaMovieService",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "main": "src/server.ts",
   "scripts": {
-    "prod": "node src/server.ts",
-    "dev": "npx nodemon src/server.ts",
+    "prod": "npx tsx src/server.ts",
+    "dev": "npx tsx watch src/server.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@mikro-orm/core": "^6.3.13",
-    "@mikro-orm/postgresql": "^6.3.13",
-    "@mikro-orm/sql-highlighter": "^1.0.1",
-    "@types/express": "^5.0.0",
-    "express": "^4.21.1"
-  },
-  "devDependencies": {
-    "@mikro-orm/cli": "^6.3.13",
-    "@mikro-orm/entity-generator": "^6.3.13",
-    "@mikro-orm/migrations": "^6.3.13",
-    "@types/node": "^22.7.5",
-    "express-generator": "^4.16.1",
-    "node-dev": "^8.0.0",
-    "nodemon": "^3.1.7",
-    "ts-node": "^10.9.2",
+    "dotenv": "^16.4.5",
+    "drizzle-orm": "^0.35.1",
+    "express": "^4.21.1",
+    "pg": "^8.13.0",
     "typescript": "^5.6.3"
   },
-  "mikro-orm": {
-    "configPaths": [
-      "src/config/mikro-orm.config.ts",
-      "dist/config/mikro-orm.config.js"
-    ],
-    "useTsNode": true
-  },
-  "nodemonConfig": {
-    "delay": 1,
-    "execMap": {
-      "ts": "ts-node"
-    },
-    "ext": "ts",
-    "watch": [
-      "src"
-    ]
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.7.5",
+    "@types/pg": "^8.11.10",
+    "drizzle-kit": "^0.26.2",
+    "express-generator": "^4.16.1",
+    "tsx": "^4.19.1"
   }
 }
