@@ -11,13 +11,9 @@ ARG PNPM_VERSION=9.12.1
 
 FROM node:${NODE_VERSION}-alpine
 
-# Use production node environment by default.
-ENV NODE_ENV production
-
 # Install pnpm.
 RUN --mount=type=cache,target=/root/.npm \
-    npm install -g pnpm@${PNPM_VERSION} \
-    pnpm install -g ts-node
+    npm install -g pnpm@${PNPM_VERSION}
 
 WORKDIR /app
 
@@ -30,6 +26,11 @@ RUN --mount=type=bind,source=package.json,target=package.json \
     --mount=type=cache,target=/root/.local/share/pnpm/store \
     pnpm install --prod --frozen-lockfile
 
+# Install Doppler CLI
+RUN wget -q -t3 'https://packages.doppler.com/public/cli/rsa.8004D9FF50437357.key' -O /etc/apk/keys/cli@doppler-8004D9FF50437357.rsa.pub && \
+    echo 'https://packages.doppler.com/public/cli/alpine/any-version/main' | tee -a /etc/apk/repositories && \
+    apk add doppler
+
 # Run the application as a non-root user.
 USER node
 
@@ -39,5 +40,5 @@ COPY . .
 # Expose the port that the application listens on.
 EXPOSE 3000
 
-# Run the application.
-CMD ["pnpm", "run", "dev"]
+# Run the application with the entrypoint.
+CMD ["doppler", "run", "--", "pnpm", "run", "dev"]
