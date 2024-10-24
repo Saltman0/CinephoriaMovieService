@@ -1,7 +1,10 @@
 #!/bin/bash
 
-# Ignore history from doppler run commands
-export HISTIGNORE='doppler run*'
+# Ignore history from export Doppler token
+export HISTIGNORE="export DOPPLER_TOKEN"
+
+# Export Doppler token
+export DOPPLER_TOKEN=$1
 
 # Run doppler provided by our service token with docker compose command
-doppler run --token=$1 -- docker compose up -d --build
+doppler run -- docker compose up -d --build
