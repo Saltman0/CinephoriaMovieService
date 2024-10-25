@@ -31,6 +31,9 @@ RUN wget -q -t3 'https://packages.doppler.com/public/cli/rsa.8004D9FF50437357.ke
     echo 'https://packages.doppler.com/public/cli/alpine/any-version/main' | tee -a /etc/apk/repositories && \
     apk add doppler
 
+# A env file is added with the secrets from Doppler
+RUN --env-file <(doppler secrets download --no-file --format docker)
+
 # Run the application as a non-root user.
 USER node
 
