@@ -9,7 +9,7 @@ const isSslEnabled: boolean = process.env["IS_SSL_ENABLED"] === "true";
 
 export default defineConfig({
     out: './migrations',
-    schema: './src/db/schema',
+    schema: './src/schema',
     dialect: 'postgresql',
     verbose: isVerboseEnabled,
     dbCredentials: {
