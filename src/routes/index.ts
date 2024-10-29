@@ -1,6 +1,6 @@
-import { Router } from "express";
+import router from "./movies.routes";
 import moviesRoutes from "./movies.routes";
 
-const router: Router = Router();
-
 router.use("/movies", moviesRoutes);
+
+export default router;
