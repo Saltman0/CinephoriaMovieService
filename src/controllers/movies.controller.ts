@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import * as moviesRepository from "../repository/movies.repository"
+import * as moviesRepository from "../repository/movies.repository";
 
 export async function getMovies(req: Request, res: Response) {
     try {
@@ -12,7 +12,6 @@ export async function getMovies(req: Request, res: Response) {
         if (error instanceof Error) {
             res.status(500).json({ message: error.message });
         }
-
     }
 }
 
