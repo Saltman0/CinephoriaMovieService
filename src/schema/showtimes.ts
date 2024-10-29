@@ -6,5 +6,5 @@ export const showtimesTable = drizzle.pgTable("showtimes", {
     startTime: drizzle.date().notNull(),
     endTime: drizzle.date().notNull(),
     price: drizzle.integer().notNull(),
-    movieId: drizzle.integer().references(() => moviesTable.id)
+    movieId: drizzle.integer().references(() => moviesTable.id, {onDelete: "cascade"}).notNull()
 });

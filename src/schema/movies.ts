@@ -8,5 +8,5 @@ export const moviesTable = drizzle.pgTable("movies", {
     minimumAge: drizzle.integer(),
     favorite: drizzle.boolean(),
     imageURL: drizzle.varchar().unique().notNull(),
-    categoryId: drizzle.integer().references(() => categoriesTable.id)
+    categoryId: drizzle.integer().references(() => categoriesTable.id, {onDelete: "cascade"}).notNull()
 });
