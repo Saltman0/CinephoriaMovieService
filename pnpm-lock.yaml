@@ -8,9 +8,6 @@ importers:
 
   .:
     dependencies:
-      dotenv:
-        specifier: ^16.4.5
-        version: 16.4.5
       drizzle-orm:
         specifier: ^0.35.1
         version: 0.35.1(@types/pg@8.11.10)(knex@3.1.0(pg@8.13.0))(pg@8.13.0)
@@ -590,10 +587,6 @@ packages:
   destroy@1.2.0:
     resolution: {integrity: sha512-2sJGJTaXIIaR1w4iJSNoN0hnMY7Gpc/n8D4qSCJw8QqFWXf7cuAgnEHxBpweaVcPevC2l3KpjYCx3NypQQgaJg==}
     engines: {node: '>= 0.8', npm: 1.2.8000 || >= 1.4.16}
-
-  dotenv@16.4.5:
-    resolution: {integrity: sha512-ZmdL2rui+eB2YwhsWzjInR8LldtZHGDoQ1ugH85ppHKwpUHL7j7rN0Ti9NCnGiQbhaZ11FpR+7ao1dNsmduNUg==}
-    engines: {node: '>=12'}
 
   drizzle-kit@0.26.2:
     resolution: {integrity: sha512-cMq8omEKywjIy5KcqUo6LvEFxkl8/zYHsgYjFVXjmPWWtuW4blcz+YW9+oIhoaALgs2ebRjzXwsJgN9i6P49Dw==}
@@ -1486,8 +1479,6 @@ snapshots:
   depd@2.0.0: {}
 
   destroy@1.2.0: {}
-
-  dotenv@16.4.5: {}
 
   drizzle-kit@0.26.2:
     dependencies:
