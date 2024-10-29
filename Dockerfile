@@ -1,5 +1,3 @@
-# syntax=docker/dockerfile:1
-
 # Comments are provided throughout this file to help you get started.
 # If you need more help, visit the Dockerfile reference guide at
 # https://docs.docker.com/go/dockerfile-reference/
@@ -26,14 +24,6 @@ RUN --mount=type=bind,source=package.json,target=package.json \
     --mount=type=cache,target=/root/.local/share/pnpm/store \
     pnpm install --prod --frozen-lockfile
 
-# Install Doppler CLI
-RUN wget -q -t3 'https://packages.doppler.com/public/cli/rsa.8004D9FF50437357.key' -O /etc/apk/keys/cli@doppler-8004D9FF50437357.rsa.pub && \
-    echo 'https://packages.doppler.com/public/cli/alpine/any-version/main' | tee -a /etc/apk/repositories && \
-    apk add doppler
-
-# A env file is added with the secrets from Doppler
-RUN --env-file <(doppler secrets download --no-file --format docker)
-
 # Run the application as a non-root user.
 USER node
 
@@ -44,4 +34,4 @@ COPY . .
 EXPOSE 3000
 
 # Run the application with the entrypoint.
-CMD ["doppler", "run", "--", "pnpm", "run", "dev"]
+CMD ["pnpm", "run", "dev"]
