@@ -42,8 +42,8 @@ DROP TABLE IF EXISTS showtimes;
 CREATE TABLE IF NOT EXISTS showtimes
 (
     "id" SERIAL PRIMARY KEY,
-    "startTime" DATE NOT NULL,
-    "endTime" DATE NOT NULL,
+    "startTime" TIMESTAMP NOT NULL,
+    "endTime" TIMESTAMP NOT NULL,
     "price" INTEGER NOT NULL,
     "movieId" INTEGER REFERENCES movies(id) ON UPDATE NO ACTION ON DELETE NO ACTION
 );
