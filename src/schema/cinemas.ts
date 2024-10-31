@@ -4,6 +4,7 @@ export const cinemasTable = drizzle.pgTable("cinemas", {
     id: drizzle.integer().primaryKey().generatedAlwaysAsIdentity(),
     name: drizzle.varchar().notNull(),
     adress: drizzle.varchar().notNull(),
+    postalCode: drizzle.integer().notNull(),
     phoneNumber: drizzle.varchar().notNull(),
     openHour: drizzle.time().notNull(),
     closeHour: drizzle.time().notNull()
