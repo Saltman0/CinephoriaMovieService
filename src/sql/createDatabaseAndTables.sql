@@ -57,6 +57,7 @@ CREATE TABLE IF NOT EXISTS cinemas
     "name" VARCHAR NOT NULL,
     "adress" VARCHAR NOT NULL,
     "postalCode" INTEGER NOT NULL,
+    "city" VARCHAR NOT NULL,
     "phoneNumber" VARCHAR NOT NULL,
     "openHour" TIME WITHOUT TIME ZONE NOT NULL,
     "closeHour" TIME WITHOUT TIME ZONE NOT NULL
