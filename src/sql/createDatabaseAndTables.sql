@@ -56,6 +56,7 @@ CREATE TABLE IF NOT EXISTS cinemas
     "id" SERIAL PRIMARY KEY,
     "name" VARCHAR NOT NULL,
     "adress" VARCHAR NOT NULL,
+    "postalCode" INTEGER NOT NULL,
     "phoneNumber" VARCHAR NOT NULL,
     "openHour" TIME WITHOUT TIME ZONE NOT NULL,
     "closeHour" TIME WITHOUT TIME ZONE NOT NULL
@@ -69,7 +70,7 @@ CREATE TABLE IF NOT EXISTS halls
     "id" SERIAL PRIMARY KEY,
     "number" INTEGER NOT NULL,
     "projectionQuality" VARCHAR,
-    "showId" INTEGER REFERENCES showtimes(id) ON UPDATE NO ACTION ON DELETE CASCADE,
+    "showtimeId" INTEGER REFERENCES showtimes(id) ON UPDATE NO ACTION ON DELETE CASCADE,
     "cinemaId" INTEGER REFERENCES cinemas(id) ON UPDATE NO ACTION ON DELETE CASCADE
 );
 -- Halls table
