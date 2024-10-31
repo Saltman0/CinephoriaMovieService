@@ -8,6 +8,8 @@ CREATE TABLE IF NOT EXISTS "cinemas" (
 	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "cinemas_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
 	"name" varchar NOT NULL,
 	"adress" varchar NOT NULL,
+	"postalCode" integer NOT NULL,
+	"city" varchar NOT NULL,
 	"phoneNumber" varchar NOT NULL,
 	"openHour" time NOT NULL,
 	"closeHour" time NOT NULL
@@ -17,7 +19,6 @@ CREATE TABLE IF NOT EXISTS "halls" (
 	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "halls_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
 	"number" integer NOT NULL,
 	"projectionQuality" varchar,
-	"showId" integer NOT NULL,
 	"cinemaId" integer NOT NULL
 );
 --> statement-breakpoint
@@ -41,17 +42,12 @@ CREATE TABLE IF NOT EXISTS "ratings" (
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "showtimes" (
 	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "showtimes_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
-	"startTime" date NOT NULL,
-	"endTime" date NOT NULL,
+	"startTime" timestamp NOT NULL,
+	"endTime" timestamp NOT NULL,
 	"price" integer NOT NULL,
-	"movieId" integer NOT NULL
+	"movieId" integer NOT NULL,
+	"hallId" integer NOT NULL
 );
---> statement-breakpoint
-DO $$ BEGIN
- ALTER TABLE "halls" ADD CONSTRAINT "halls_showId_showtimes_id_fk" FOREIGN KEY ("showId") REFERENCES "public"."showtimes"("id") ON DELETE cascade ON UPDATE no action;
-EXCEPTION
- WHEN duplicate_object THEN null;
-END $$;
 --> statement-breakpoint
 DO $$ BEGIN
  ALTER TABLE "halls" ADD CONSTRAINT "halls_cinemaId_cinemas_id_fk" FOREIGN KEY ("cinemaId") REFERENCES "public"."cinemas"("id") ON DELETE cascade ON UPDATE no action;
@@ -73,6 +69,12 @@ END $$;
 --> statement-breakpoint
 DO $$ BEGIN
  ALTER TABLE "showtimes" ADD CONSTRAINT "showtimes_movieId_movies_id_fk" FOREIGN KEY ("movieId") REFERENCES "public"."movies"("id") ON DELETE cascade ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "showtimes" ADD CONSTRAINT "showtimes_hallId_halls_id_fk" FOREIGN KEY ("hallId") REFERENCES "public"."halls"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;

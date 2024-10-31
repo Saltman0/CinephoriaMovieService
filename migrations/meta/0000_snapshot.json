@@ -1,5 +1,5 @@
 {
-  "id": "5244b306-39dd-493e-b532-2487190e16d9",
+  "id": "ac613339-0d21-45e0-b8bd-9102c90933c0",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -79,6 +79,18 @@
           "primaryKey": false,
           "notNull": true
         },
+        "postalCode": {
+          "name": "postalCode",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "city": {
+          "name": "city",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
         "phoneNumber": {
           "name": "phoneNumber",
           "type": "varchar",
@@ -137,12 +149,6 @@
           "primaryKey": false,
           "notNull": false
         },
-        "showId": {
-          "name": "showId",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
         "cinemaId": {
           "name": "cinemaId",
           "type": "integer",
@@ -152,19 +158,6 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "halls_showId_showtimes_id_fk": {
-          "name": "halls_showId_showtimes_id_fk",
-          "tableFrom": "halls",
-          "tableTo": "showtimes",
-          "columnsFrom": [
-            "showId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        },
         "halls_cinemaId_cinemas_id_fk": {
           "name": "halls_cinemaId_cinemas_id_fk",
           "tableFrom": "halls",
@@ -352,13 +345,13 @@
         },
         "startTime": {
           "name": "startTime",
-          "type": "date",
+          "type": "timestamp",
           "primaryKey": false,
           "notNull": true
         },
         "endTime": {
           "name": "endTime",
-          "type": "date",
+          "type": "timestamp",
           "primaryKey": false,
           "notNull": true
         },
@@ -373,6 +366,12 @@
           "type": "integer",
           "primaryKey": false,
           "notNull": true
+        },
+        "hallId": {
+          "name": "hallId",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
         }
       },
       "indexes": {},
@@ -383,6 +382,19 @@
           "tableTo": "movies",
           "columnsFrom": [
             "movieId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "showtimes_hallId_halls_id_fk": {
+          "name": "showtimes_hallId_halls_id_fk",
+          "tableFrom": "showtimes",
+          "tableTo": "halls",
+          "columnsFrom": [
+            "hallId"
           ],
           "columnsTo": [
             "id"
