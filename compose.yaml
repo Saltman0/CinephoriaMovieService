@@ -12,6 +12,7 @@ services:
     build:
       context: .
     environment:
+      NODE_ENV: ${NODE_ENV}
       POSTGRES_HOST: ${POSTGRES_HOST}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -26,7 +27,7 @@ services:
       - postgresdb
 
   postgresdb:
-    image: postgres
+    image: postgres:17-alpine
     ports:
       - "5432:5432"
     environment:
@@ -38,20 +39,6 @@ services:
     restart: unless-stopped
     volumes:
       - postgres_data:/var/lib/postgresql/data
-
-  pgadmin:
-    image: dpage/pgadmin4
-    ports:
-      - "5050:5050"
-    volumes:
-      - pgadmin_data:/var/lib/pgadmin
-    environment:
-      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
-      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
-      PGADMIN_LISTEN_PORT: ${PGADMIN_LISTEN_PORT}
-    restart: unless-stopped
-    depends_on:
-      - postgresdb
 
 volumes:
   postgres_data:
