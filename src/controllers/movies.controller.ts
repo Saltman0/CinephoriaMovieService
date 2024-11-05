@@ -22,7 +22,12 @@ export async function getMovieById(req: Request, res: Response) {
         const movie = await moviesRepository.findMovieById(
             parseInt(req.params.id)
         );
-        res.status(200).json(movie);
+
+        if (movie !== null) {
+            res.status(200).json(movie);
+        } else {
+            res.status(404).json({error : `Movie ${req.params.id} not found`});
+        }
     } catch (error) {
         if (error instanceof Error) {
             res.status(500).json({ message: error.message });

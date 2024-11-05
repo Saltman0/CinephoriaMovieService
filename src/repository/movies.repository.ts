@@ -34,12 +34,18 @@ export async function findMovies(cinemaId: number|null, categoryId: number|null,
 
 export async function findMovieById(id: number) {
     try {
-        return await database
+        const result = await database
             .select()
             .from(moviesTable)
             .where(eq(moviesTable.id, id))
             .prepare("findMovieById")
             .execute();
+
+        if (result.length === 0) {
+            return null;
+        }
+
+        return result;
     } catch (error) {
         logger.error("Find movie by ID : " + error);
         throw error;
