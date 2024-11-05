@@ -2,36 +2,48 @@ import * as moviesFactory from "../factory/movies.factory";
 import { database } from "../config/database";
 import { moviesTable } from "../schema/movies";
 import { eq } from "drizzle-orm/sql/expressions/conditions";
+import { logger } from "../app";
 
 export async function findMovies(cinemaId: number|null, categoryId: number|null, startDate: Date|null, endDate: Date|null) {
-    let findMoviesQuery = "SELECT * FROM users";
-
-    if (categoryId !== null) {
-        findMoviesQuery += `WHERE movies.categoryId = ${cinemaId}`;
-    }
+    let findMoviesQuery = "SELECT * FROM movies";
 
     if (cinemaId !== null || (startDate !== null && endDate !== null)) {
-        findMoviesQuery += "INNER JOIN showtimes ON showtimes.movieId = movies.id" +
-            "INNER JOIN halls ON halls.showId = showtimes.id";
+        findMoviesQuery += " INNER JOIN showtimes ON showtimes.movieId = movies.id" +
+            " INNER JOIN halls ON showtimes.hallId = halls.id";
 
         if (cinemaId !== null) {
-            findMoviesQuery += `WHERE halls.cinemaId = ${cinemaId}`;
+            findMoviesQuery += ` WHERE halls.cinemaId = ${cinemaId}`;
         }
 
         if (startDate !== null && endDate != null) {
-            findMoviesQuery += `WHERE showtimes.startTime >= ${startDate} AND showtimes.endTime <= ${endDate}`;
+            findMoviesQuery += ` WHERE showtimes.startTime >= ${startDate} AND showtimes.endTime <= ${endDate}`;
         }
     }
 
+    if (categoryId !== null) {
+        findMoviesQuery += ` WHERE movies.categoryId = ${cinemaId}`;
+    }
+
     try {
-        await database.execute(findMoviesQuery);
+        return await database.execute(findMoviesQuery);
     } catch (error) {
-        console.log("Find movies : " + error);
+        logger.error("Find movies : " + error);
+        throw error;
     }
 }
 
 export async function findMovieById(id: number) {
-    await database.select().from(moviesTable).where(eq(moviesTable.id, id)).prepare("findMovieById").execute();
+    try {
+        return await database
+            .select()
+            .from(moviesTable)
+            .where(eq(moviesTable.id, id))
+            .prepare("findMovieById")
+            .execute();
+    } catch (error) {
+        logger.error("Find movie by ID : " + error);
+        throw error;
+    }
 }
 
 export async function insertMovie(title: string, description: string, minimumAge: number, favorite: boolean, imageURL: string, categoryId: number) {
@@ -43,6 +55,7 @@ export async function insertMovie(title: string, description: string, minimumAge
     try {
         await preparedInsertMovie.execute();
     } catch (error) {
+        logger.error("Insert movie : " + error);
         throw error;
     }
 }
@@ -64,7 +77,8 @@ export async function updateMovie(id: number, title: string, description: string
     try {
         await preparedUpdateMovie.execute();
     } catch (error) {
-        console.log("Update movie : " + error);
+        logger.error("Update movie : " + error);
+        throw error;
     }
 }
 
@@ -77,6 +91,7 @@ export async function deleteMovie(id: number) {
     try {
         await preparedDeleteMovie.execute();
     } catch (error) {
-        console.log("Delete movie : " + error);
+        logger.error("Delete movie : " + error);
+        throw error;
     }
 }
