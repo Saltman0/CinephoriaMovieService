@@ -1,7 +1,7 @@
 import express, { Express } from "express";
 import cors from "cors";
 import pino from "pino";
-import indexRoutes from "./routes/index";
+import moviesRoutes from "./routes/movies.routes";
 
 export const port: number = 3000;
 
@@ -19,4 +19,4 @@ export const logger = pino({
 app.use(cors());
 app.use(express.json());
 
-app.use(indexRoutes);
+app.use(moviesRoutes);
