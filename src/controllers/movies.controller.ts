@@ -48,8 +48,9 @@ export async function createMovie(req: Request, res: Response) {
             req.body.minimumAge,
             req.body.favorite,
             req.body.imageURL,
-            parseInt(req.params.categoryId)
+            parseInt(req.body.categoryId)
         );
+
         res.status(200).json(movieToCreate);
     } catch (error) {
         if (error instanceof Error) {
@@ -67,8 +68,9 @@ export async function updateMovie(req: Request, res: Response) {
             req.body.minimumAge,
             req.body.favorite,
             req.body.imageURL,
-            parseInt(req.params.categoryId)
+            req.body.categoryId ? parseInt(req.body.categoryId) : null
         );
+
         res.status(200).json(movieToUpdate);
     } catch (error) {
         if (error instanceof Error) {
@@ -82,6 +84,7 @@ export async function deleteMovie(req: Request, res: Response) {
         const movieToDelete = await moviesRepository.deleteMovie(
             parseInt(req.params.id)
         );
+
         res.status(200).json(movieToDelete);
     } catch (error) {
         if (error instanceof Error) {

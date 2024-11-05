@@ -2,7 +2,6 @@ import * as moviesFactory from "../factory/movies.factory";
 import { database } from "../config/database";
 import { moviesTable } from "../schema/movies";
 import { eq } from "drizzle-orm/sql/expressions/conditions";
-import { logger } from "../app";
 
 export async function findMovies(cinemaId: number|null, categoryId: number|null, startDate: Date|null, endDate: Date|null) {
     let findMoviesQuery = "SELECT * FROM movies";
@@ -33,7 +32,6 @@ export async function findMovies(cinemaId: number|null, categoryId: number|null,
 
         return result.rows;
     } catch (error) {
-        logger.error("Find movies : " + error);
         throw error;
     }
 }
@@ -53,7 +51,6 @@ export async function findMovieById(id: number) {
 
         return result;
     } catch (error) {
-        logger.error("Find movie by ID : " + error);
         throw error;
     }
 }
@@ -67,21 +64,20 @@ export async function insertMovie(title: string, description: string, minimumAge
     try {
         await preparedInsertMovie.execute();
     } catch (error) {
-        logger.error("Insert movie : " + error);
         throw error;
     }
 }
 
-export async function updateMovie(id: number, title: string, description: string, minimumAge: number, favorite: boolean, imageURL: string, categoryId: number) {
+export async function updateMovie(id: number, title: string|null, description: string|null, minimumAge: number|null, favorite: boolean|null, imageURL: string|null, categoryId: number|null) {
     const preparedUpdateMovie = database
         .update(moviesTable)
         .set({
-            title: title,
-            description: description,
-            minimumAge: minimumAge,
-            favorite: favorite,
-            imageURL: imageURL,
-            categoryId: categoryId
+            title: title ?? undefined,
+            description: description ?? undefined,
+            minimumAge: minimumAge ?? undefined,
+            favorite: favorite ?? undefined,
+            imageURL: imageURL ?? undefined,
+            categoryId: categoryId ?? undefined,
         })
         .where(eq(moviesTable.id, id))
         .prepare("updateMovie");
@@ -89,7 +85,6 @@ export async function updateMovie(id: number, title: string, description: string
     try {
         await preparedUpdateMovie.execute();
     } catch (error) {
-        logger.error("Update movie : " + error);
         throw error;
     }
 }
@@ -103,7 +98,6 @@ export async function deleteMovie(id: number) {
     try {
         await preparedDeleteMovie.execute();
     } catch (error) {
-        logger.error("Delete movie : " + error);
         throw error;
     }
 }
