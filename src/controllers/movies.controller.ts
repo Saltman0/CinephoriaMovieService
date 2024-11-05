@@ -4,8 +4,10 @@ import * as moviesRepository from "../repository/movies.repository";
 export async function getMovies(req: Request, res: Response) {
     try {
         const movies = await moviesRepository.findMovies(
-            parseInt(req.params.cinemaId), parseInt(req.params.categoryId),
-            new Date(req.params.startDate), new Date(req.params.endDate)
+            req.params.cinemaId ? parseInt(req.params.cinemaId) : null,
+            req.params.categoryId ? parseInt(req.params.categoryId) : null,
+            req.params.startDate ? new Date(req.params.startDate) : null,
+            req.params.endDate ? new Date(req.params.endDate) : null
         );
         res.status(200).json(movies);
     } catch (error) {
