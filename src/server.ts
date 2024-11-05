@@ -1,9 +1,5 @@
 import {app, logger, port} from "./app";
 
-logger.info("test");
-logger.warn("alerte");
-logger.error("erreur 4565");
-
 if (process.env.NODE_ENV === 'development') {
   logger.info('Running in development mode');
 } else {
