@@ -1,4 +1,4 @@
-import {app, logger, port} from "./app";
+import { app, logger, port } from "./app";
 
 if (process.env.NODE_ENV === 'development') {
   logger.info('Running in development mode');
@@ -7,5 +7,5 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+  logger.info(`Server is running on port ${port}`);
 });
