@@ -1,6 +1,6 @@
 import * as moviesFactory from "../factory/movies.factory";
 import { database } from "../config/database";
-import { moviesTable } from "../schema/movies";
+import { movie } from "../schema/movie";
 import { eq } from "drizzle-orm/sql/expressions/conditions";
 
 export async function findMovies(cinemaId: number|null, categoryId: number|null, startDate: Date|null, endDate: Date|null) {
@@ -42,8 +42,8 @@ export async function findMovieById(id: number) {
     try {
         const result = await database
             .select()
-            .from(moviesTable)
-            .where(eq(moviesTable.id, id))
+            .from(movie)
+            .where(eq(movie.id, id))
             .prepare("findMovieById")
             .execute();
 
@@ -59,7 +59,7 @@ export async function findMovieById(id: number) {
 
 export async function insertMovie(title: string, description: string, minimumAge: number, favorite: boolean, imageURL: string, categoryId: number) {
     const preparedInsertMovie = database
-        .insert(moviesTable)
+        .insert(movie)
         .values(moviesFactory.createMovie(title, description, minimumAge, favorite, imageURL, categoryId))
         .prepare("insertMovie");
 
@@ -72,7 +72,7 @@ export async function insertMovie(title: string, description: string, minimumAge
 
 export async function updateMovie(id: number, title: string|null, description: string|null, minimumAge: number|null, favorite: boolean|null, imageURL: string|null, categoryId: number|null) {
     const preparedUpdateMovie = database
-        .update(moviesTable)
+        .update(movie)
         .set({
             title: title ?? undefined,
             description: description ?? undefined,
@@ -81,7 +81,7 @@ export async function updateMovie(id: number, title: string|null, description: s
             imageURL: imageURL ?? undefined,
             categoryId: categoryId ?? undefined,
         })
-        .where(eq(moviesTable.id, id))
+        .where(eq(movie.id, id))
         .prepare("updateMovie");
 
     try {
@@ -93,8 +93,8 @@ export async function updateMovie(id: number, title: string|null, description: s
 
 export async function deleteMovie(id: number) {
     const preparedDeleteMovie = database
-        .delete(moviesTable)
-        .where(eq(moviesTable.id, id))
+        .delete(movie)
+        .where(eq(movie.id, id))
         .prepare("deleteMovie");
 
     try {

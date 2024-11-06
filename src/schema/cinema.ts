@@ -1,6 +1,6 @@
 import * as drizzle from "drizzle-orm/pg-core";
 
-export const cinemasTable = drizzle.pgTable("cinemas", {
+export const cinema = drizzle.pgTable("cinema", {
     id: drizzle.integer().primaryKey().generatedAlwaysAsIdentity(),
     name: drizzle.varchar().notNull(),
     address: drizzle.varchar().notNull(),
