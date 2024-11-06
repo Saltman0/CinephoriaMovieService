@@ -1,12 +1,12 @@
 import * as drizzle from "drizzle-orm/pg-core";
-import { categoriesTable } from "./categories";
+import { category } from "./category";
 
-export const moviesTable = drizzle.pgTable("movies", {
+export const movie = drizzle.pgTable("movie", {
     id: drizzle.integer().primaryKey().generatedAlwaysAsIdentity(),
     title: drizzle.varchar().notNull(),
     description: drizzle.text().notNull(),
     minimumAge: drizzle.integer(),
     favorite: drizzle.boolean(),
     imageURL: drizzle.varchar().unique().notNull(),
-    categoryId: drizzle.integer().references(() => categoriesTable.id, {onDelete: "cascade"}).notNull()
+    categoryId: drizzle.integer().references(() => category.id, {onDelete: "cascade"}).notNull()
 });
