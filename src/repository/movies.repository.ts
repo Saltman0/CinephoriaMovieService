@@ -23,6 +23,8 @@ export async function findMovies(cinemaId: number|null, categoryId: number|null,
         findMoviesQuery += ` WHERE movies.categoryId = ${cinemaId}`;
     }
 
+    findMoviesQuery += " ORDER BY movies.id ASC";
+
     try {
         let result = await database.execute(findMoviesQuery);
 
