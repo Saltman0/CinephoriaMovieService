@@ -8,7 +8,8 @@
 # database or a cache. For examples, see the Awesome Compose repository:
 # https://github.com/docker/awesome-compose
 services:
-  server:
+  cinephoria:
+    container_name: cinephoria_movie
     build:
       context: .
     environment:
@@ -27,6 +28,7 @@ services:
       - postgresdb
 
   postgresdb:
+    container_name: postgres_movie
     image: postgres:17-alpine
     ports:
       - "5432:5432"
