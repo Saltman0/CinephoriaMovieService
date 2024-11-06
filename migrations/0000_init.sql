@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS "categories" (
 CREATE TABLE IF NOT EXISTS "cinemas" (
 	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "cinemas_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
 	"name" varchar NOT NULL,
-	"adress" varchar NOT NULL,
+	"address" varchar NOT NULL,
 	"postalCode" integer NOT NULL,
 	"city" varchar NOT NULL,
 	"phoneNumber" varchar NOT NULL,

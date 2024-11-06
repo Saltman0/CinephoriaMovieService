@@ -1,5 +1,5 @@
 {
-  "id": "ac613339-0d21-45e0-b8bd-9102c90933c0",
+  "id": "31240b0b-86bc-4f67-a6c7-78f6ba957171",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -73,8 +73,8 @@
           "primaryKey": false,
           "notNull": true
         },
-        "adress": {
-          "name": "adress",
+        "address": {
+          "name": "address",
           "type": "varchar",
           "primaryKey": false,
           "notNull": true
