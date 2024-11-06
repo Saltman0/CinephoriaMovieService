@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS cinemas
 (
     "id" SERIAL PRIMARY KEY,
     "name" VARCHAR NOT NULL,
-    "adress" VARCHAR NOT NULL,
+    "address" VARCHAR NOT NULL,
     "postalCode" INTEGER NOT NULL,
     "city" VARCHAR NOT NULL,
     "phoneNumber" VARCHAR NOT NULL,

@@ -2,7 +2,7 @@
 BEGIN;
 
     -- Insert cinemas
-    INSERT INTO cinemas ("name", "adress", "postalCode", "city", "phoneNumber", "openHour", "closeHour") VALUES
+    INSERT INTO cinemas ("name", "address", "postalCode", "city", "phoneNumber", "openHour", "closeHour") VALUES
         ('Cinéphoria Nantes', '25, avenue du Breton', 44000, 'Nantes', '06 45 89 53 21', '08:00:00', '23:30:00'),
         ('Cinéphoria Bordeaux', '154, rue du bordeleaux', 33000, 'Bordeaux', '06 32 65 45 12', '08:20:00', '23:50:00'),
         ('Cinéphoria Paris', '356, avenue de Napoléon', 75001, 'Paris', '01 56 99 21 44', '07:00:00', '23:20:00'),
