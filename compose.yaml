@@ -8,8 +8,8 @@
 # database or a cache. For examples, see the Awesome Compose repository:
 # https://github.com/docker/awesome-compose
 services:
-  cinephoria:
-    container_name: cinephoria_movie
+  server:
+    container_name: server
     build:
       context: .
     environment:
@@ -25,9 +25,9 @@ services:
     volumes:
       - .:/app
     depends_on:
-      - postgresdb
+      - postgres_movie
 
-  postgresdb:
+  postgres_movie:
     container_name: postgres_movie
     image: postgres:17-alpine
     ports:
@@ -40,10 +40,10 @@ services:
       POSTGRES_INITDB_ARGS: ${POSTGRES_INITDB_ARGS}
     restart: unless-stopped
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_movie_data:/var/lib/postgresql/data
 
 volumes:
-  postgres_data:
+  postgres_movie_data:
 
 # The commented out section below is an example of how to define a PostgreSQL
 # database that your application can use. `depends_on` tells Docker Compose to
