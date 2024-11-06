@@ -1,8 +1,8 @@
 -- Start the SQL transaction
 BEGIN;
 
-    -- Insert cinemas
-    INSERT INTO cinemas ("name", "address", "postalCode", "city", "phoneNumber", "openHour", "closeHour") VALUES
+    -- Insert cinema
+    INSERT INTO cinema ("name", "address", "postalCode", "city", "phoneNumber", "openHour", "closeHour") VALUES
         ('Cinéphoria Nantes', '25, avenue du Breton', 44000, 'Nantes', '06 45 89 53 21', '08:00:00', '23:30:00'),
         ('Cinéphoria Bordeaux', '154, rue du bordeleaux', 33000, 'Bordeaux', '06 32 65 45 12', '08:20:00', '23:50:00'),
         ('Cinéphoria Paris', '356, avenue de Napoléon', 75001, 'Paris', '01 56 99 21 44', '07:00:00', '23:20:00'),
@@ -10,23 +10,23 @@ BEGIN;
         ('Cinéphoria Lille', '239, avenue du Nord', 59000, 'Lille', '06 32 87 12 97', '08:30:00', '23:10:00'),
         ('Cinéphoria Charleroi', '654, rue du belge', 6000, 'Charleroi', '07 65 99 21 65', '09:00:00', '22:30:00'),
         ('Cinéphoria Liège', '1213, avenue du chocolat noir', 4000, 'Liège', '06 99 56 22 87', '10:00:00', '23:30:00');
-    -- Insert cinemas
+    -- Insert cinema
 
-    SAVEPOINT cinemas_savepoint;
+    SAVEPOINT cinema_savepoint;
 
-    -- Insert categories
-    INSERT INTO categories ("name") VALUES
+    -- Insert categorie
+    INSERT INTO category ("name") VALUES
         ('Action'),
         ('Aventure'),
         ('Drame'),
         ('Horreur'),
         ('Comédie');
-    -- Insert categories
+    -- Insert categorie
 
-    SAVEPOINT categories_savepoint;
+    SAVEPOINT category_savepoint;
 
-    -- Insert movies
-    INSERT INTO movies ("title", "description", "minimumAge", "favorite", "imageURL", "categoryId") VALUES
+    -- Insert movie
+    INSERT INTO movie ("title", "description", "minimumAge", "favorite", "imageURL", "categoryId") VALUES
         ('Mon voisin Totoro', 'Deux petites filles, Mei et Satsuki, viennent s''installer avec leur père dans une grande maison à la campagne afin de se rapprocher de l''hôpital où séjourne leur mère. Elles vont découvrir l''existence de leurs nouveaux voisins, invisible aux yeux des autres humains, des créatures merveilleuses, mais très discrètes : Grand Totoro, Moyen Totoro (Chū-Totoro) et Petit Totoro (Chibi-Totoro). Avec son ventre rebondi, Totoro est un être rare et fascinant, un esprit de la forêt... Il se nourrit de glands et de noix. Il peut voler, se déplacer en « Chat-Bus ». Il dort le jour, mais les nuits de pleine lune, il aime jouer avec des ocarinas magiques...', NULL, false, 'pasEncoreLeLien0', 2),
         ('Avengers : Infinity War', 'Les Avengers et leurs alliés devront être prêts à tout sacrifier pour neutraliser le redoutable Thanos avant que son attaque éclair ne conduise à la destruction complète de l’univers.', 12, false, 'pasEncoreLeLien1', 1),
         ('Dune : deuxième partie', 'Paul Atreides s’unit à Chani et aux Fremen pour mener la révolte contre ceux qui ont anéanti sa famille. Hanté par de sombres prémonitions, il se trouve confronté au plus grand des dilemmes : choisir entre l’amour de sa vie et le destin de l’univers.', 14, false, 'pasEncoreLeLien2', 1),
@@ -41,12 +41,12 @@ BEGIN;
         ('Star Wars III : La Revanche des Sith', 'La Guerre des Clones fait rage. Une franche hostilité oppose désormais le Chancelier Palpatine au Conseil Jedi. Anakin Skywalker, jeune Chevalier Jedi pris entre deux feux, hésite sur la conduite à tenir. Séduit par la promesse d''un pouvoir sans précédent, tenté par le côté obscur de la Force...', 10, true, 'pasEncoreLeLien11', 1),
         ('The Dark Knight : Le Chevalier Noir', 'Dans ce nouveau volet, Batman augmente les mises dans sa guerre contre le crime. Avec l''appui du lieutenant de police Jim Gordon et du procureur de Gotham, Harvey Dent, Batman vise à éradiquer le crime organisé qui pullule dans la ville...', 10, true, 'pasEncoreLeLien12', 1),
         ('Vice-versa', 'Au Quartier Général, le centre de contrôle situé dans la tête de la petite Riley, 11 ans, cinq Émotions sont au travail. À leur tête, Joie, débordante d''optimisme et de bonne humeur, veille à ce que Riley soit heureuse. Peur se charge de la sécurité...', NULL, false, 'pasEncoreLeLien13', 2);
-    -- Insert movies
+    -- Insert movie
 
-    SAVEPOINT movies_savepoint;
+    SAVEPOINT movie_savepoint;
 
-    -- Insert ratings
-    INSERT INTO ratings ("number", "description", "movieId") VALUES
+    -- Insert rating
+    INSERT INTO rating ("number", "description", "movieId") VALUES
         (5, 'Super film, je vous le recommande !', 1),
         (4, 'Un bon film.', 1),
         (3, 'C''était pas mal, sans plus.', 2),
@@ -72,12 +72,12 @@ BEGIN;
         (5, 'Un film exceptionnel.', 12),
         (5, 'Quel film incroyable !', 13),
         (5, 'Très émouvant !', 14);
-    -- Insert ratings
+    -- Insert rating
 
-    SAVEPOINT ratings_savepoint;
+    SAVEPOINT rating_savepoint;
 
-    -- Insert halls
-    INSERT INTO halls ("number", "projectionQuality", "cinemaId") VALUES
+    -- Insert hall
+    INSERT INTO hall ("number", "projectionQuality", "cinemaId") VALUES
         (1, 'HD', 1),
         (2, '4K', 1),
         (3, 'SD', 1),
@@ -120,12 +120,12 @@ BEGIN;
         (4, 'SD', 7),
         (5, '4K', 7),
         (6, 'SD', 7);
-    -- Insert halls
+    -- Insert hall
 
-    SAVEPOINT halls_savepoint;
+    SAVEPOINT hall_savepoint;
 
-    -- Insert showtimes
-    INSERT INTO showtimes ("startTime", "endTime", "price", "movieId", "hallId") VALUES
+    -- Insert showtime
+    INSERT INTO showtime ("startTime", "endTime", "price", "movieId", "hallId") VALUES
         ('2024-11-21 18:00:00', '2024-11-21 20:00:00', 15, 1, 1),
         ('2024-11-22 14:00:00', '2024-11-22 16:00:00', 12, 1, 7),
         ('2024-11-20 14:00:00', '2024-11-20 16:00:00', 12, 1, 13),
@@ -210,9 +210,9 @@ BEGIN;
         ('2024-11-24 14:00:00', '2024-11-24 16:00:00', 12, 14, 30),
         ('2024-11-25 18:00:00', '2024-11-25 20:00:00', 15, 14, 36),
         ('2024-11-25 20:20:00', '2024-11-25 22:20:00', 15, 14, 42);
-    -- Insert showtimes
+    -- Insert showtime
 
-    SAVEPOINT showtimes_savepoint;
+    SAVEPOINT showtime_savepoint;
 
 -- Commit if successful
 COMMIT;
