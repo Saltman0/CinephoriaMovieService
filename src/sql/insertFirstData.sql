@@ -2,7 +2,7 @@
 BEGIN;
 
     -- Insert cinema
-    INSERT INTO cinema ("name", "address", "postalCode", "city", "phoneNumber", "openHour", "closeHour") VALUES
+    INSERT INTO "cinema" ("name", "address", "postalCode", "city", "phoneNumber", "openHour", "closeHour") VALUES
         ('Cinéphoria Nantes', '25, avenue du Breton', 44000, 'Nantes', '06 45 89 53 21', '08:00:00', '23:30:00'),
         ('Cinéphoria Bordeaux', '154, rue du bordeleaux', 33000, 'Bordeaux', '06 32 65 45 12', '08:20:00', '23:50:00'),
         ('Cinéphoria Paris', '356, avenue de Napoléon', 75001, 'Paris', '01 56 99 21 44', '07:00:00', '23:20:00'),
@@ -15,7 +15,7 @@ BEGIN;
     SAVEPOINT cinema_savepoint;
 
     -- Insert categorie
-    INSERT INTO category ("name") VALUES
+    INSERT INTO "category" ("name") VALUES
         ('Action'),
         ('Aventure'),
         ('Drame'),
@@ -26,7 +26,7 @@ BEGIN;
     SAVEPOINT category_savepoint;
 
     -- Insert movie
-    INSERT INTO movie ("title", "description", "minimumAge", "favorite", "imageURL", "categoryId") VALUES
+    INSERT INTO "movie" ("title", "description", "minimumAge", "favorite", "imageURL", "categoryId") VALUES
         ('Mon voisin Totoro', 'Deux petites filles, Mei et Satsuki, viennent s''installer avec leur père dans une grande maison à la campagne afin de se rapprocher de l''hôpital où séjourne leur mère. Elles vont découvrir l''existence de leurs nouveaux voisins, invisible aux yeux des autres humains, des créatures merveilleuses, mais très discrètes : Grand Totoro, Moyen Totoro (Chū-Totoro) et Petit Totoro (Chibi-Totoro). Avec son ventre rebondi, Totoro est un être rare et fascinant, un esprit de la forêt... Il se nourrit de glands et de noix. Il peut voler, se déplacer en « Chat-Bus ». Il dort le jour, mais les nuits de pleine lune, il aime jouer avec des ocarinas magiques...', NULL, false, 'pasEncoreLeLien0', 2),
         ('Avengers : Infinity War', 'Les Avengers et leurs alliés devront être prêts à tout sacrifier pour neutraliser le redoutable Thanos avant que son attaque éclair ne conduise à la destruction complète de l’univers.', 12, false, 'pasEncoreLeLien1', 1),
         ('Dune : deuxième partie', 'Paul Atreides s’unit à Chani et aux Fremen pour mener la révolte contre ceux qui ont anéanti sa famille. Hanté par de sombres prémonitions, il se trouve confronté au plus grand des dilemmes : choisir entre l’amour de sa vie et le destin de l’univers.', 14, false, 'pasEncoreLeLien2', 1),
@@ -46,7 +46,7 @@ BEGIN;
     SAVEPOINT movie_savepoint;
 
     -- Insert rating
-    INSERT INTO rating ("number", "description", "movieId") VALUES
+    INSERT INTO "rating" ("number", "description", "movieId") VALUES
         (5, 'Super film, je vous le recommande !', 1),
         (4, 'Un bon film.', 1),
         (3, 'C''était pas mal, sans plus.', 2),
@@ -77,7 +77,7 @@ BEGIN;
     SAVEPOINT rating_savepoint;
 
     -- Insert hall
-    INSERT INTO hall ("number", "projectionQuality", "cinemaId") VALUES
+    INSERT INTO "hall" ("number", "projectionQuality", "cinemaId") VALUES
         (1, 'HD', 1),
         (2, '4K', 1),
         (3, 'SD', 1),
@@ -125,7 +125,7 @@ BEGIN;
     SAVEPOINT hall_savepoint;
 
     -- Insert showtime
-    INSERT INTO showtime ("startTime", "endTime", "price", "movieId", "hallId") VALUES
+    INSERT INTO "showtime" ("startTime", "endTime", "price", "movieId", "hallId") VALUES
         ('2024-11-21 18:00:00', '2024-11-21 20:00:00', 15, 1, 1),
         ('2024-11-22 14:00:00', '2024-11-22 16:00:00', 12, 1, 7),
         ('2024-11-20 14:00:00', '2024-11-20 16:00:00', 12, 1, 13),
