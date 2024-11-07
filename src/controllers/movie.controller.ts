@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import * as moviesRepository from "../repository/movies.repository";
+import * as movieRepository from "../repository/movie.repository";
 
 export async function getMovies(req: Request, res: Response) {
     try {
-        const movies = await moviesRepository.findMovies(
+        const movies = await movieRepository.findMovies(
             req.params.cinemaId ? parseInt(req.params.cinemaId) : null,
             req.params.categoryId ? parseInt(req.params.categoryId) : null,
             req.params.startDate ? new Date(req.params.startDate) : null,
@@ -24,7 +24,7 @@ export async function getMovies(req: Request, res: Response) {
 
 export async function getMovieById(req: Request, res: Response) {
     try {
-        const movie = await moviesRepository.findMovieById(
+        const movie = await movieRepository.findMovieById(
             parseInt(req.params.id)
         );
 
@@ -42,7 +42,7 @@ export async function getMovieById(req: Request, res: Response) {
 
 export async function createMovie(req: Request, res: Response) {
     try {
-        const movieToCreate = await moviesRepository.insertMovie(
+        const movieToCreate = await movieRepository.insertMovie(
             req.body.title,
             req.body.description,
             req.body.minimumAge,
@@ -61,7 +61,7 @@ export async function createMovie(req: Request, res: Response) {
 
 export async function updateMovie(req: Request, res: Response) {
     try {
-        const movieToUpdate = await moviesRepository.updateMovie(
+        const movieToUpdate = await movieRepository.updateMovie(
             parseInt(req.params.id),
             req.body.title,
             req.body.description,
@@ -81,7 +81,7 @@ export async function updateMovie(req: Request, res: Response) {
 
 export async function deleteMovie(req: Request, res: Response) {
     try {
-        const movieToDelete = await moviesRepository.deleteMovie(
+        const movieToDelete = await movieRepository.deleteMovie(
             parseInt(req.params.id)
         );
 

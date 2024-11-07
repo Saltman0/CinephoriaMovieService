@@ -4,7 +4,7 @@ import { movie } from "../schema/movie";
 import { eq } from "drizzle-orm/sql/expressions/conditions";
 
 export async function findMovies(cinemaId: number|null, categoryId: number|null, startDate: Date|null, endDate: Date|null) {
-    let findMoviesQuery = "SELECT * FROM movies";
+    let findMoviesQuery = "SELECT * FROM movie";
 
     if (cinemaId !== null || (startDate !== null && endDate !== null)) {
         findMoviesQuery += " INNER JOIN showtimes ON showtimes.movieId = movies.id" +
