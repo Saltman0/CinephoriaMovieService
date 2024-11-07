@@ -7,23 +7,23 @@ export async function findMovies(cinemaId: number|null, categoryId: number|null,
     let findMoviesQuery = "SELECT * FROM movie";
 
     if (cinemaId !== null || (startDate !== null && endDate !== null)) {
-        findMoviesQuery += " INNER JOIN showtimes ON showtimes.movieId = movies.id" +
-            " INNER JOIN halls ON showtimes.hallId = halls.id";
+        findMoviesQuery += " INNER JOIN showtime ON showtime.movieId = movie.id" +
+            " INNER JOIN hall ON showtime.hallId = hall.id";
 
         if (cinemaId !== null) {
-            findMoviesQuery += ` WHERE halls.cinemaId = ${cinemaId}`;
+            findMoviesQuery += ` WHERE hall.cinemaId = ${cinemaId}`;
         }
 
         if (startDate !== null && endDate != null) {
-            findMoviesQuery += ` WHERE showtimes.startTime >= ${startDate} AND showtimes.endTime <= ${endDate}`;
+            findMoviesQuery += ` WHERE showtime.startTime >= ${startDate} AND showtime.endTime <= ${endDate}`;
         }
     }
 
     if (categoryId !== null) {
-        findMoviesQuery += ` WHERE movies.categoryId = ${cinemaId}`;
+        findMoviesQuery += ` WHERE movie.categoryId = ${cinemaId}`;
     }
 
-    findMoviesQuery += " ORDER BY movies.id ASC";
+    findMoviesQuery += " ORDER BY movie.id ASC";
 
     try {
         let result = await database.execute(findMoviesQuery);
