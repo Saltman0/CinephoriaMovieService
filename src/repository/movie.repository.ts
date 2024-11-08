@@ -4,26 +4,26 @@ import { movie } from "../schema/movie";
 import { eq } from "drizzle-orm/sql/expressions/conditions";
 
 export async function findMovies(cinemaId: number|null, categoryId: number|null, startDate: Date|null, endDate: Date|null) {
-    let findMoviesQuery = "SELECT * FROM movie";
+    let findMoviesQuery = 'SELECT * FROM "movie"';
 
     if (cinemaId !== null || (startDate !== null && endDate !== null)) {
-        findMoviesQuery += " INNER JOIN showtime ON showtime.movieId = movie.id" +
-            " INNER JOIN hall ON showtime.hallId = hall.id";
+        findMoviesQuery += ' INNER JOIN "showtime" ON "showtime"."movieId" = "movie"."id"' +
+            ' INNER JOIN "hall" ON "showtime"."hallId" = "hall"."id"';
 
         if (cinemaId !== null) {
-            findMoviesQuery += ` WHERE hall.cinemaId = ${cinemaId}`;
+            findMoviesQuery += ` WHERE "hall"."cinemaId" = ${cinemaId}`;
         }
 
         if (startDate !== null && endDate != null) {
-            findMoviesQuery += ` WHERE showtime.startTime >= ${startDate} AND showtime.endTime <= ${endDate}`;
+            findMoviesQuery += ` WHERE "showtime"."startTime" >= ${startDate} AND "showtime"."endTime" <= ${endDate}`;
         }
     }
 
     if (categoryId !== null) {
-        findMoviesQuery += ` WHERE movie.categoryId = ${cinemaId}`;
+        findMoviesQuery += ` WHERE "movie"."categoryId" = ${cinemaId}`;
     }
 
-    findMoviesQuery += " ORDER BY movie.id ASC";
+    findMoviesQuery += ' ORDER BY "movie"."id" ASC';
 
     try {
         let result = await database.execute(findMoviesQuery);
