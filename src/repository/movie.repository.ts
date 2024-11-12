@@ -20,7 +20,7 @@ export async function findMovies(cinemaId: number|null, categoryId: number|null,
     }
 
     if (categoryId !== null) {
-        findMoviesQuery += ` WHERE "movie"."categoryId" = ${cinemaId}`;
+        findMoviesQuery += ` WHERE "movie"."categoryId" = ${categoryId}`;
     }
 
     findMoviesQuery += ' ORDER BY "movie"."id" ASC';
