@@ -22,7 +22,7 @@ services:
       IS_VERBOSE_ENABLED: ${IS_VERBOSE_ENABLED}
       IS_SSL_ENABLED: ${IS_SSL_ENABLED}
     networks:
-      - cineporia_movie_network
+      - cinephoria_movie_network
     ports:
       - "3001:3000"
     volumes:
@@ -42,14 +42,14 @@ services:
     ports:
       - "5433:5432"
     networks:
-      - cineporia_movie_network
+      - cinephoria_movie_network
     restart: unless-stopped
     volumes:
       - postgres_movie_data:/var/lib/postgresql/data
 
 networks:
-  cineporia_movie_network:
-    name: cineporia_movie_network
+  cinephoria_movie_network:
+    name: cinephoria_movie_network
     driver: bridge
     ipam:
       config:
