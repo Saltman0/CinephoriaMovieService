@@ -1,4 +1,4 @@
-import * as moviesFactory from "../factory/movies.factory";
+import * as movieFactory from "../factory/movie.factory";
 import { database } from "../config/database";
 import { movie } from "../schema/movie";
 import { eq } from "drizzle-orm/sql/expressions/conditions";
@@ -60,7 +60,7 @@ export async function findMovieById(id: number) {
 export async function insertMovie(title: string, description: string, minimumAge: number, favorite: boolean, imageURL: string, categoryId: number) {
     const preparedInsertMovie = database
         .insert(movie)
-        .values(moviesFactory.createMovie(title, description, minimumAge, favorite, imageURL, categoryId))
+        .values(movieFactory.createMovie(title, description, minimumAge, favorite, imageURL, categoryId))
         .prepare("insertMovie");
 
     try {
