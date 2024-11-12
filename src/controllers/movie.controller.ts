@@ -51,7 +51,7 @@ export async function createMovie(req: Request, res: Response) {
             parseInt(req.body.categoryId)
         );
 
-        res.status(200).json(movieToCreate);
+        res.status(201).json(movieToCreate);
     } catch (error) {
         if (error instanceof Error) {
             res.status(500).json({ message: error.message });
