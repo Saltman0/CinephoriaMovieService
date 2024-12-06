@@ -1,3 +1,7 @@
-docker_build('saltman0/nodejs-api:dev')
+docker_build('saltman0/nodejs-movie:dev', '.', entrypoint=".")
 
-k8s_resource(workload='movie-nodejs-deployment', port_forwards=3002, labels=["backend"])
+k8s_resource(
+    workload='movie-nodejs-deployment',
+    port_forwards=3002,
+    labels=["backend"]
+)
