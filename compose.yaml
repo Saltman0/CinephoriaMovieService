@@ -24,7 +24,7 @@ services:
     networks:
       - cinephoria_movie_network
     ports:
-      - "3001:3000"
+      - "3002:3000"
     volumes:
       - .:/app
     depends_on:
@@ -40,7 +40,7 @@ services:
       POSTGRES_HOST_AUTH_METHOD: ${POSTGRES_HOST_AUTH_METHOD}
       POSTGRES_INITDB_ARGS: ${POSTGRES_INITDB_ARGS}
     ports:
-      - "5433:5432"
+      - "5434:5432"
     networks:
       - cinephoria_movie_network
     restart: unless-stopped
@@ -53,8 +53,8 @@ networks:
     driver: bridge
     ipam:
       config:
-        - subnet: 172.20.0.0/16
-          gateway: 172.20.0.1
+        - subnet: 172.21.0.0/16
+          gateway: 172.21.0.1
 
 volumes:
   postgres_movie_data:
