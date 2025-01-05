@@ -51,7 +51,7 @@ export async function findMovieById(id: number) {
             return null;
         }
 
-        return result;
+        return result[0];
     } catch (error) {
         throw error;
     }
