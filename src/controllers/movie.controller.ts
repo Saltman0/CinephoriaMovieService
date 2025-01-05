@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import * as movieRepository from "../repository/movie.repository";
+import { publishMessage } from "../rabbitmq";
 
 export async function getMovies(req: Request, res: Response) {
     try {
@@ -13,7 +14,7 @@ export async function getMovies(req: Request, res: Response) {
         if (movies !== null) {
             res.status(200).json(movies);
         } else {
-            res.status(404).json({error : `Movies not found.`});
+            res.status(404).json({ message : `Movies not found.` });
         }
     } catch (error) {
         if (error instanceof Error) {
@@ -31,7 +32,7 @@ export async function getMovieById(req: Request, res: Response) {
         if (movie !== null) {
             res.status(200).json(movie);
         } else {
-            res.status(404).json({error : `Movie ${req.params.id} not found.`});
+            res.status(404).json({ message : `Movie ${req.params.id} not found.` });
         }
     } catch (error) {
         if (error instanceof Error) {
@@ -50,6 +51,8 @@ export async function createMovie(req: Request, res: Response) {
             req.body.imageURL,
             parseInt(req.body.categoryId)
         );
+
+        await publishMessage("movie", JSON.stringify({ type: "movie", event: "create", movie: movieToCreate}));
 
         res.status(201).json(movieToCreate);
     } catch (error) {
@@ -71,6 +74,8 @@ export async function updateMovie(req: Request, res: Response) {
             req.body.categoryId ? parseInt(req.body.categoryId) : null
         );
 
+        await publishMessage("movie", JSON.stringify({ type: "movie", event: "UPDATE", movie: movieToUpdate}));
+
         res.status(200).json(movieToUpdate);
     } catch (error) {
         if (error instanceof Error) {
@@ -85,7 +90,9 @@ export async function deleteMovie(req: Request, res: Response) {
             parseInt(req.params.id)
         );
 
-        res.status(200).json(movieToDelete);
+        await publishMessage("movie", JSON.stringify({ type: "movie", event: "delete", movie: movieToDelete }));
+
+        res.status(200).json({ message: "Movie deleted successfully." });
     } catch (error) {
         if (error instanceof Error) {
             res.status(500).json({ message: error.message });
