@@ -43,9 +43,7 @@ export async function findMovieById(id: number) {
         const result = await database
             .select()
             .from(movie)
-            .where(eq(movie.id, id))
-            .prepare("findMovieById")
-            .execute();
+            .where(eq(movie.id, id));
 
         if (result.length === 0) {
             return null;
