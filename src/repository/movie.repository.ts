@@ -58,47 +58,47 @@ export async function findMovieById(id: number) {
 }
 
 export async function insertMovie(title: string, description: string, minimumAge: number, favorite: boolean, imageURL: string, categoryId: number) {
-    const preparedInsertMovie = database
-        .insert(movie)
-        .values(movieFactory.createMovie(title, description, minimumAge, favorite, imageURL, categoryId))
-        .prepare("insertMovie");
-
     try {
-        await preparedInsertMovie.execute();
+        const preparedInsertMovie = await database
+            .insert(movie)
+            .values(movieFactory.createMovie(title, description, minimumAge, favorite, imageURL, categoryId))
+            .returning();
+
+        return preparedInsertMovie[0];
     } catch (error) {
         throw error;
     }
 }
 
 export async function updateMovie(id: number, title: string|null, description: string|null, minimumAge: number|null, favorite: boolean|null, imageURL: string|null, categoryId: number|null) {
-    const preparedUpdateMovie = database
-        .update(movie)
-        .set({
-            title: title ?? undefined,
-            description: description ?? undefined,
-            minimumAge: minimumAge ?? undefined,
-            favorite: favorite ?? undefined,
-            imageURL: imageURL ?? undefined,
-            categoryId: categoryId ?? undefined,
-        })
-        .where(eq(movie.id, id))
-        .prepare("updateMovie");
-
     try {
-        await preparedUpdateMovie.execute();
+        const preparedUpdateMovie = await database
+            .update(movie)
+            .set({
+                title: title ?? undefined,
+                description: description ?? undefined,
+                minimumAge: minimumAge ?? undefined,
+                favorite: favorite ?? undefined,
+                imageURL: imageURL ?? undefined,
+                categoryId: categoryId ?? undefined,
+            })
+            .where(eq(movie.id, id))
+            .returning();
+
+        return preparedUpdateMovie[0];
     } catch (error) {
         throw error;
     }
 }
 
 export async function deleteMovie(id: number) {
-    const preparedDeleteMovie = database
-        .delete(movie)
-        .where(eq(movie.id, id))
-        .prepare("deleteMovie");
-
     try {
-        await preparedDeleteMovie.execute();
+        const preparedDeleteMovie = await database
+            .delete(movie)
+            .where(eq(movie.id, id))
+            .returning({ id: movie.id });
+
+        return preparedDeleteMovie[0];
     } catch (error) {
         throw error;
     }
