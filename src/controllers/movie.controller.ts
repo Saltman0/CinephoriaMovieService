@@ -52,7 +52,7 @@ export async function createMovie(req: Request, res: Response) {
             parseInt(req.body.categoryId)
         );
 
-        await publishMessage("movie", JSON.stringify({ type: "movie", event: "create", movie: movieToCreate}));
+        await publishMessage("movie", JSON.stringify({ type: "movie", event: "create", body: movieToCreate }));
 
         res.status(201).json(movieToCreate);
     } catch (error) {
@@ -74,7 +74,7 @@ export async function updateMovie(req: Request, res: Response) {
             req.body.categoryId ? parseInt(req.body.categoryId) : null
         );
 
-        await publishMessage("movie", JSON.stringify({ type: "movie", event: "UPDATE", movie: movieToUpdate}));
+        await publishMessage("movie", JSON.stringify({ type: "movie", event: "update", body: movieToUpdate }));
 
         res.status(200).json(movieToUpdate);
     } catch (error) {
@@ -90,7 +90,7 @@ export async function deleteMovie(req: Request, res: Response) {
             parseInt(req.params.id)
         );
 
-        await publishMessage("movie", JSON.stringify({ type: "movie", event: "delete", movie: movieToDelete }));
+        await publishMessage("movie", JSON.stringify({ type: "movie", event: "delete", body: movieToDelete }));
 
         res.status(200).json({ message: "Movie deleted successfully." });
     } catch (error) {
