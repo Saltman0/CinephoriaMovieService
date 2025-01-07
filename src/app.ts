@@ -22,6 +22,5 @@ app.use(cors());
 app.use(express.json());
 app.use(passport.initialize());
 app.use(movieRoutes);
-await subscribeToMessages("booking");
 await subscribeToMessages("showtime");
 await subscribeToMessages("user");
