@@ -21,6 +21,10 @@ export const logger = pino({
 app.use(cors());
 app.use(express.json());
 app.use(passport.initialize());
+
 app.use(movieRoutes);
+
 await subscribeToMessages("showtime");
 await subscribeToMessages("user");
+await subscribeToMessages("cinema");
+await subscribeToMessages("hall");
