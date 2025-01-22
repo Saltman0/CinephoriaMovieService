@@ -28,10 +28,6 @@ export async function findMovies(cinemaId: number|null, categoryId: number|null,
     try {
         let result = await database.execute(findMoviesQuery);
 
-        if (result.rows.length === 0) {
-            return null;
-        }
-
         return result.rows;
     } catch (error) {
         throw error;
