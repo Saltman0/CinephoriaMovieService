@@ -11,11 +11,7 @@ export async function getMovies(req: Request, res: Response) {
             req.params.endDate ? new Date(req.params.endDate) : null
         );
 
-        if (movies !== null) {
-            res.status(200).json(movies);
-        } else {
-            res.status(404).json({ message : `Movies not found.` });
-        }
+        res.status(200).json(movies);
     } catch (error) {
         if (error instanceof Error) {
             res.status(500).json({ message: error.message });
@@ -29,11 +25,7 @@ export async function getMovieById(req: Request, res: Response) {
             parseInt(req.params.id)
         );
 
-        if (movie !== null) {
-            res.status(200).json(movie);
-        } else {
-            res.status(404).json({ message : `Movie ${req.params.id} not found.` });
-        }
+        res.status(200).json(movie);
     } catch (error) {
         if (error instanceof Error) {
             res.status(500).json({ message: error.message });
