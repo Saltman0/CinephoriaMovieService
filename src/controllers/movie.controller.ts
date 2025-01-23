@@ -45,7 +45,7 @@ export async function getFavoriteMovies(req: Request, res: Response) {
 export async function getMovieById(req: Request, res: Response) {
     try {
         const movie = await movieRepository.findMovieById(
-            parseInt(req.params.id)
+            parseInt(req.params.movieId)
         );
 
         res.status(200).json(movie);
@@ -80,7 +80,7 @@ export async function createMovie(req: Request, res: Response) {
 export async function updateMovie(req: Request, res: Response) {
     try {
         const movieToUpdate = await movieRepository.updateMovie(
-            parseInt(req.params.id),
+            parseInt(req.params.movieId),
             req.body.title,
             req.body.description,
             req.body.minimumAge,
@@ -102,7 +102,7 @@ export async function updateMovie(req: Request, res: Response) {
 export async function deleteMovie(req: Request, res: Response) {
     try {
         const movieToDelete = await movieRepository.deleteMovie(
-            parseInt(req.params.id)
+            parseInt(req.params.movieId)
         );
 
         await publishMessage("movie", JSON.stringify({ type: "movie", event: "delete", body: movieToDelete }));
