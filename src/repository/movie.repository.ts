@@ -47,6 +47,19 @@ export async function findLastMovies(limit: number = 7) {
     }
 }
 
+export async function findFavoriteMovies(limit: number = 7) {
+    try {
+        return await database
+            .select()
+            .from(movie)
+            .where(eq(movie.favorite, true))
+            .limit(limit)
+            .orderBy(desc(movie.id));
+    } catch (error) {
+        throw error;
+    }
+}
+
 export async function findMovieById(id: number) {
     try {
         const result = await database

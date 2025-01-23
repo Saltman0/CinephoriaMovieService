@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import * as movieRepository from "../repository/movie.repository";
 import { publishMessage } from "../rabbitmq";
+import {findFavoriteMovies} from "../repository/movie.repository";
 
 export async function getMovies(req: Request, res: Response) {
     try {
@@ -21,11 +22,25 @@ export async function getMovies(req: Request, res: Response) {
 
 export async function getLastMovies(req: Request, res: Response) {
     try {
-        const movies = await movieRepository.findLastMovies(
+        const lastMovies = await movieRepository.findLastMovies(
             parseInt(req.params.limit)
         );
 
-        res.status(200).json(movies);
+        res.status(200).json(lastMovies);
+    } catch (error) {
+        if (error instanceof Error) {
+            res.status(500).json({ message: error.message });
+        }
+    }
+}
+
+export async function getFavoriteMovies(req: Request, res: Response) {
+    try {
+        const favoriteMovies = await movieRepository.findFavoriteMovies(
+            parseInt(req.params.limit)
+        );
+
+        res.status(200).json(favoriteMovies);
     } catch (error) {
         if (error instanceof Error) {
             res.status(500).json({ message: error.message });
