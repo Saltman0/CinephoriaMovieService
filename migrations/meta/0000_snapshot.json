@@ -1,11 +1,11 @@
 {
-  "id": "ac613339-0d21-45e0-b8bd-9102c90933c0",
+  "id": "29cd16d3-2740-4589-8ca5-68baba498eac",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
-    "public.categories": {
-      "name": "categories",
+    "public.category": {
+      "name": "category",
       "schema": "",
       "columns": {
         "id": {
@@ -15,7 +15,7 @@
           "notNull": true,
           "identity": {
             "type": "always",
-            "name": "categories_id_seq",
+            "name": "category_id_seq",
             "schema": "public",
             "increment": "1",
             "startWith": "1",
@@ -36,8 +36,8 @@
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
-        "categories_name_unique": {
-          "name": "categories_name_unique",
+        "category_name_unique": {
+          "name": "category_name_unique",
           "nullsNotDistinct": false,
           "columns": [
             "name"
@@ -46,8 +46,8 @@
       },
       "checkConstraints": {}
     },
-    "public.cinemas": {
-      "name": "cinemas",
+    "public.cinema": {
+      "name": "cinema",
       "schema": "",
       "columns": {
         "id": {
@@ -57,7 +57,7 @@
           "notNull": true,
           "identity": {
             "type": "always",
-            "name": "cinemas_id_seq",
+            "name": "cinema_id_seq",
             "schema": "public",
             "increment": "1",
             "startWith": "1",
@@ -73,8 +73,8 @@
           "primaryKey": false,
           "notNull": true
         },
-        "adress": {
-          "name": "adress",
+        "address": {
+          "name": "address",
           "type": "varchar",
           "primaryKey": false,
           "notNull": true
@@ -116,8 +116,8 @@
       "uniqueConstraints": {},
       "checkConstraints": {}
     },
-    "public.halls": {
-      "name": "halls",
+    "public.hall": {
+      "name": "hall",
       "schema": "",
       "columns": {
         "id": {
@@ -127,7 +127,7 @@
           "notNull": true,
           "identity": {
             "type": "always",
-            "name": "halls_id_seq",
+            "name": "hall_id_seq",
             "schema": "public",
             "increment": "1",
             "startWith": "1",
@@ -158,10 +158,10 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "halls_cinemaId_cinemas_id_fk": {
-          "name": "halls_cinemaId_cinemas_id_fk",
-          "tableFrom": "halls",
-          "tableTo": "cinemas",
+        "hall_cinemaId_cinema_id_fk": {
+          "name": "hall_cinemaId_cinema_id_fk",
+          "tableFrom": "hall",
+          "tableTo": "cinema",
           "columnsFrom": [
             "cinemaId"
           ],
@@ -176,8 +176,8 @@
       "uniqueConstraints": {},
       "checkConstraints": {}
     },
-    "public.movies": {
-      "name": "movies",
+    "public.movie": {
+      "name": "movie",
       "schema": "",
       "columns": {
         "id": {
@@ -187,7 +187,7 @@
           "notNull": true,
           "identity": {
             "type": "always",
-            "name": "movies_id_seq",
+            "name": "movie_id_seq",
             "schema": "public",
             "increment": "1",
             "startWith": "1",
@@ -236,10 +236,10 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "movies_categoryId_categories_id_fk": {
-          "name": "movies_categoryId_categories_id_fk",
-          "tableFrom": "movies",
-          "tableTo": "categories",
+        "movie_categoryId_category_id_fk": {
+          "name": "movie_categoryId_category_id_fk",
+          "tableFrom": "movie",
+          "tableTo": "category",
           "columnsFrom": [
             "categoryId"
           ],
@@ -252,8 +252,8 @@
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
-        "movies_imageURL_unique": {
-          "name": "movies_imageURL_unique",
+        "movie_imageURL_unique": {
+          "name": "movie_imageURL_unique",
           "nullsNotDistinct": false,
           "columns": [
             "imageURL"
@@ -262,8 +262,8 @@
       },
       "checkConstraints": {}
     },
-    "public.ratings": {
-      "name": "ratings",
+    "public.rating": {
+      "name": "rating",
       "schema": "",
       "columns": {
         "id": {
@@ -273,7 +273,7 @@
           "notNull": true,
           "identity": {
             "type": "always",
-            "name": "ratings_id_seq",
+            "name": "rating_id_seq",
             "schema": "public",
             "increment": "1",
             "startWith": "1",
@@ -304,10 +304,10 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "ratings_movieId_movies_id_fk": {
-          "name": "ratings_movieId_movies_id_fk",
-          "tableFrom": "ratings",
-          "tableTo": "movies",
+        "rating_movieId_movie_id_fk": {
+          "name": "rating_movieId_movie_id_fk",
+          "tableFrom": "rating",
+          "tableTo": "movie",
           "columnsFrom": [
             "movieId"
           ],
@@ -322,8 +322,8 @@
       "uniqueConstraints": {},
       "checkConstraints": {}
     },
-    "public.showtimes": {
-      "name": "showtimes",
+    "public.showtime": {
+      "name": "showtime",
       "schema": "",
       "columns": {
         "id": {
@@ -333,7 +333,7 @@
           "notNull": true,
           "identity": {
             "type": "always",
-            "name": "showtimes_id_seq",
+            "name": "showtime_id_seq",
             "schema": "public",
             "increment": "1",
             "startWith": "1",
@@ -376,10 +376,10 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "showtimes_movieId_movies_id_fk": {
-          "name": "showtimes_movieId_movies_id_fk",
-          "tableFrom": "showtimes",
-          "tableTo": "movies",
+        "showtime_movieId_movie_id_fk": {
+          "name": "showtime_movieId_movie_id_fk",
+          "tableFrom": "showtime",
+          "tableTo": "movie",
           "columnsFrom": [
             "movieId"
           ],
@@ -389,10 +389,10 @@
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
-        "showtimes_hallId_halls_id_fk": {
-          "name": "showtimes_hallId_halls_id_fk",
-          "tableFrom": "showtimes",
-          "tableTo": "halls",
+        "showtime_hallId_hall_id_fk": {
+          "name": "showtime_hallId_hall_id_fk",
+          "tableFrom": "showtime",
+          "tableTo": "hall",
           "columnsFrom": [
             "hallId"
           ],

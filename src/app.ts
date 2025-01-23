@@ -1,9 +1,11 @@
 import express, { Express } from "express";
 import cors from "cors";
 import pino from "pino";
-import moviesRoutes from "./routes/movies.routes";
+import movieRoutes from "./routes/movie.routes";
+import passport from "./middleware/passport";
+import { subscribeToMessages } from "./rabbitmq";
 
-export const port: number = 3000;
+export const port: number = parseInt(process.env.PORT as string) || 3000;
 
 export const app: Express = express();
 
@@ -18,5 +20,11 @@ export const logger = pino({
 
 app.use(cors());
 app.use(express.json());
+app.use(passport.initialize());
 
-app.use(moviesRoutes);
+app.use(movieRoutes);
+
+await subscribeToMessages("showtime");
+await subscribeToMessages("user");
+await subscribeToMessages("cinema");
+await subscribeToMessages("hall");
