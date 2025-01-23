@@ -1,7 +1,6 @@
 import { Router } from 'express';
 import * as movieController from '../controllers/movie.controller';
 import passport from "../middleware/passport";
-import {getFavoriteMovies, getLastMovies} from "../controllers/movie.controller";
 
 const router: Router = Router();
 

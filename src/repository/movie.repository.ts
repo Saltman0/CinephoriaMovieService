@@ -1,35 +1,15 @@
 import * as movieFactory from "../factory/movie.factory";
-import {database} from "../config/database";
-import {movie} from "../schema/movie";
-import {eq} from "drizzle-orm/sql/expressions/conditions";
-import {desc} from "drizzle-orm/sql/expressions/select";
+import { database } from "../config/database";
+import { movie } from "../schema/movie";
+import { eq } from "drizzle-orm/sql/expressions/conditions";
+import { asc, desc } from "drizzle-orm/sql/expressions/select";
 
-export async function findMovies(cinemaId: number|null, categoryId: number|null, startDate: Date|null, endDate: Date|null) {
-    let findMoviesQuery = 'SELECT * FROM "movie"';
-
-    if (cinemaId !== null || (startDate !== null && endDate !== null)) {
-        findMoviesQuery += ' INNER JOIN "showtime" ON "showtime"."movieId" = "movie"."id"' +
-            ' INNER JOIN "hall" ON "showtime"."hallId" = "hall"."id"';
-
-        if (cinemaId !== null) {
-            findMoviesQuery += ` WHERE "hall"."cinemaId" = ${cinemaId}`;
-        }
-
-        if (startDate !== null && endDate != null) {
-            findMoviesQuery += ` WHERE "showtime"."startTime" >= ${startDate} AND "showtime"."endTime" <= ${endDate}`;
-        }
-    }
-
-    if (categoryId !== null) {
-        findMoviesQuery += ` WHERE "movie"."categoryId" = ${categoryId}`;
-    }
-
-    findMoviesQuery += ' ORDER BY "movie"."id" ASC';
-
+export async function findMovies() {
     try {
-        let result = await database.execute(findMoviesQuery);
-
-        return result.rows;
+        return await database
+            .select()
+            .from(movie)
+            .orderBy(asc(movie.id));
     } catch (error) {
         throw error;
     }
