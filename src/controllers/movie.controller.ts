@@ -19,6 +19,20 @@ export async function getMovies(req: Request, res: Response) {
     }
 }
 
+export async function getLastMovies(req: Request, res: Response) {
+    try {
+        const movies = await movieRepository.findLastMovies(
+            parseInt(req.params.limit)
+        );
+
+        res.status(200).json(movies);
+    } catch (error) {
+        if (error instanceof Error) {
+            res.status(500).json({ message: error.message });
+        }
+    }
+}
+
 export async function getMovieById(req: Request, res: Response) {
     try {
         const movie = await movieRepository.findMovieById(

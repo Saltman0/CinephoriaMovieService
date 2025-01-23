@@ -1,7 +1,8 @@
 import * as movieFactory from "../factory/movie.factory";
-import { database } from "../config/database";
-import { movie } from "../schema/movie";
-import { eq } from "drizzle-orm/sql/expressions/conditions";
+import {database} from "../config/database";
+import {movie} from "../schema/movie";
+import {eq} from "drizzle-orm/sql/expressions/conditions";
+import {desc} from "drizzle-orm/sql/expressions/select";
 
 export async function findMovies(cinemaId: number|null, categoryId: number|null, startDate: Date|null, endDate: Date|null) {
     let findMoviesQuery = 'SELECT * FROM "movie"';
@@ -29,6 +30,18 @@ export async function findMovies(cinemaId: number|null, categoryId: number|null,
         let result = await database.execute(findMoviesQuery);
 
         return result.rows;
+    } catch (error) {
+        throw error;
+    }
+}
+
+export async function findLastMovies(limit: number = 7) {
+    try {
+        return await database
+            .select()
+            .from(movie)
+            .limit(limit)
+            .orderBy(desc(movie.id));
     } catch (error) {
         throw error;
     }
