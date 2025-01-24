@@ -17,7 +17,7 @@ export async function getMovies(req: Request, res: Response) {
 export async function getLastMovies(req: Request, res: Response) {
     try {
         const lastMovies = await movieRepository.findLastMovies(
-            parseInt(req.params.limit)
+            parseInt(<string>req.query.limit)
         );
 
         res.status(200).json(lastMovies);
@@ -31,7 +31,7 @@ export async function getLastMovies(req: Request, res: Response) {
 export async function getFavoriteMovies(req: Request, res: Response) {
     try {
         const favoriteMovies = await movieRepository.findFavoriteMovies(
-            parseInt(req.params.limit)
+            parseInt(<string>req.query.limit)
         );
 
         res.status(200).json(favoriteMovies);
