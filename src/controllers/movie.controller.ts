@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import * as movieRepository from "../repository/movie.repository";
-import { publishMessage } from "../rabbitmq";
 
 export async function getMovies(req: Request, res: Response) {
     try {
@@ -67,8 +66,6 @@ export async function createMovie(req: Request, res: Response) {
             parseInt(req.body.categoryId)
         );
 
-        await publishMessage("movie", JSON.stringify({ type: "movie", event: "create", body: movieToCreate }));
-
         res.status(201).json(movieToCreate);
     } catch (error) {
         if (error instanceof Error) {
@@ -89,8 +86,6 @@ export async function updateMovie(req: Request, res: Response) {
             req.body.categoryId ? parseInt(req.body.categoryId) : null
         );
 
-        await publishMessage("movie", JSON.stringify({ type: "movie", event: "update", body: movieToUpdate }));
-
         res.status(200).json(movieToUpdate);
     } catch (error) {
         if (error instanceof Error) {
@@ -101,11 +96,7 @@ export async function updateMovie(req: Request, res: Response) {
 
 export async function deleteMovie(req: Request, res: Response) {
     try {
-        const movieToDelete = await movieRepository.deleteMovie(
-            parseInt(req.params.movieId)
-        );
-
-        await publishMessage("movie", JSON.stringify({ type: "movie", event: "delete", body: movieToDelete }));
+        await movieRepository.deleteMovie(parseInt(req.params.movieId));
 
         res.status(200).json({ message: "Movie deleted successfully." });
     } catch (error) {
