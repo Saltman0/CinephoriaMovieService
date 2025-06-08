@@ -1,8 +1,3 @@
--- Cinéphoria movie service database
-DROP DATABASE IF EXISTS "cinephoriaMovieServiceDatabase";
-CREATE DATABASE "cinephoriaMovieServiceDatabase";
--- Cinéphoria movie service database
-
 -- Category table
 DROP TABLE IF EXISTS category;
 CREATE TABLE IF NOT EXISTS category
