@@ -6,7 +6,7 @@ export const movie = drizzle.pgTable("movie", {
     title: drizzle.varchar().notNull(),
     description: drizzle.text().notNull(),
     minimumAge: drizzle.integer(),
-    favorite: drizzle.boolean(),
+    favorite: drizzle.boolean().notNull(),
     imageURL: drizzle.varchar().unique().notNull(),
     categoryId: drizzle.integer().references(() => category.id, {onDelete: "cascade"}).notNull()
 });
