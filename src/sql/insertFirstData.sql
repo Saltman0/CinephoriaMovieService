@@ -1,18 +1,15 @@
 -- Start the SQL transaction
 BEGIN;
 
-    -- Insert categorie
+    -- Categories
     INSERT INTO "category" ("name") VALUES
         ('Action'),
         ('Aventure'),
         ('Drame'),
         ('Horreur'),
         ('Comédie');
-    -- Insert categorie
 
-    SAVEPOINT category_savepoint;
-
-    -- Insert movie
+    -- Movies
     INSERT INTO "movie" ("title", "description", "minimumAge", "favorite", "imageURL", "categoryId") VALUES
         ('Mon voisin Totoro', 'Deux petites filles, Mei et Satsuki, viennent s''installer avec leur père dans une grande maison à la campagne afin de se rapprocher de l''hôpital où séjourne leur mère. Elles vont découvrir l''existence de leurs nouveaux voisins, invisible aux yeux des autres humains, des créatures merveilleuses, mais très discrètes : Grand Totoro, Moyen Totoro (Chū-Totoro) et Petit Totoro (Chibi-Totoro). Avec son ventre rebondi, Totoro est un être rare et fascinant, un esprit de la forêt... Il se nourrit de glands et de noix. Il peut voler, se déplacer en « Chat-Bus ». Il dort le jour, mais les nuits de pleine lune, il aime jouer avec des ocarinas magiques...', NULL, false, 'Mon_voisin_Totoro.jpg', 2),
         ('Avengers : Infinity War', 'Les Avengers et leurs alliés devront être prêts à tout sacrifier pour neutraliser le redoutable Thanos avant que son attaque éclair ne conduise à la destruction complète de l’univers.', 12, false, 'Avengers_Infinity_War.png', 1),
@@ -27,41 +24,18 @@ BEGIN;
         ('Spider-man 3', 'Peter Parker a enfin réussi à concilier son amour pour Mary-Jane et ses devoirs de super-héros. Mais l''horizon s''obscurcit. La brutale mutation de son costume, qui devient noir, décuple ses pouvoirs et transforme également sa personnalité...', NULL, true, 'Spider-man_3.jpg', 1),
         ('Star Wars III : La Revanche des Sith', 'La Guerre des Clones fait rage. Une franche hostilité oppose désormais le Chancelier Palpatine au Conseil Jedi. Anakin Skywalker, jeune Chevalier Jedi pris entre deux feux, hésite sur la conduite à tenir. Séduit par la promesse d''un pouvoir sans précédent, tenté par le côté obscur de la Force...', 10, true, 'Star_Wars_3.jpg', 1),
         ('The Dark Knight : Le Chevalier Noir', 'Dans ce nouveau volet, Batman augmente les mises dans sa guerre contre le crime. Avec l''appui du lieutenant de police Jim Gordon et du procureur de Gotham, Harvey Dent, Batman vise à éradiquer le crime organisé qui pullule dans la ville...', 10, true, 'The_Dark_Knight_Le_chevalier_noir.jpg', 1),
-        ('Vice-versa', 'Au Quartier Général, le centre de contrôle situé dans la tête de la petite Riley, 11 ans, cinq Émotions sont au travail. À leur tête, Joie, débordante d''optimisme et de bonne humeur, veille à ce que Riley soit heureuse. Peur se charge de la sécurité...', NULL, false, 'Vice-versa.png', 2);
-    -- Insert movie
+        ('Vice-versa', 'Au Quartier Général, le centre de contrôle situé dans la tête de la petite Riley, 11 ans, cinq Émotions sont au travail. À leur tête, Joie, débordante d''optimisme et de bonne humeur, veille à ce que Riley soit heureuse. Peur se charge de la sécurité...', NULL, false, 'Vice-versa.png', 2)
+    ;
 
-    SAVEPOINT movie_savepoint;
-
-    -- Insert rating
-    INSERT INTO "rating" ("number", "description", "movieId") VALUES
-        (5, 'Super film, je vous le recommande !', 1),
-        (4, 'Un bon film.', 1),
-        (3, 'C''était pas mal, sans plus.', 2),
-        (2, 'Bof, pas terrible', 2),
-        (1, 'Je n''ai pas du tout apprécié le film.', 3),
-        (5, 'Incroyable comme film', 3),
-        (3, 'Mouais.', 4),
-        (3, 'Il a ces moments.', 4),
-        (5, 'Super !', 5),
-        (5, 'Incroyable !', 5),
-        (1, 'Horrible film !', 6),
-        (4, 'C''était bien !', 6),
-        (2, 'Euh j''ai pas compris...', 7),
-        (3, 'Sympa.', 7),
-        (2, 'Je ne sais pas trop quoi penser...', 8),
-        (3, 'Bon film dans son ensemble.', 8),
-        (1, 'Pire film que j''ai vu de ma vie.', 9),
-        (1, 'Un mauvais film.', 9),
-        (3, 'J''ai bien aimé.', 10),
-        (3, 'C''est pas mon genre de films, mais c''est ok.', 10),
-        (5, 'C''était génial, excellent film !', 11),
-        (5, 'Excellent film.', 11),
-        (5, 'Un film exceptionnel.', 12),
-        (5, 'Quel film incroyable !', 13),
-        (5, 'Très émouvant !', 14);
-    -- Insert rating
-
-    SAVEPOINT rating_savepoint;
+    -- Ratings
+    INSERT INTO "rating" ("number", "description", "validated", "movieId", "userId") VALUES
+        (5, 'Super film, je vous le recommande !', true, 1, 1),
+        (4, 'Un bon film.', true, 1, 2),
+        (3, 'C''était pas mal, sans plus.', true, 2, 1)
+    ;
 
 -- Commit if successful
 COMMIT;
+
+-- If something fails instead
+ROLLBACK;
