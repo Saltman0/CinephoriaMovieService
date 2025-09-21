@@ -1,5 +1,5 @@
 {
-  "id": "29cd16d3-2740-4589-8ca5-68baba498eac",
+  "id": "ec611a5d-7f3a-416b-b0d8-2d739525a263",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -46,136 +46,6 @@
       },
       "checkConstraints": {}
     },
-    "public.cinema": {
-      "name": "cinema",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "integer",
-          "primaryKey": true,
-          "notNull": true,
-          "identity": {
-            "type": "always",
-            "name": "cinema_id_seq",
-            "schema": "public",
-            "increment": "1",
-            "startWith": "1",
-            "minValue": "1",
-            "maxValue": "2147483647",
-            "cache": "1",
-            "cycle": false
-          }
-        },
-        "name": {
-          "name": "name",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "address": {
-          "name": "address",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "postalCode": {
-          "name": "postalCode",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "city": {
-          "name": "city",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "phoneNumber": {
-          "name": "phoneNumber",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "openHour": {
-          "name": "openHour",
-          "type": "time",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "closeHour": {
-          "name": "closeHour",
-          "type": "time",
-          "primaryKey": false,
-          "notNull": true
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {},
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "checkConstraints": {}
-    },
-    "public.hall": {
-      "name": "hall",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "integer",
-          "primaryKey": true,
-          "notNull": true,
-          "identity": {
-            "type": "always",
-            "name": "hall_id_seq",
-            "schema": "public",
-            "increment": "1",
-            "startWith": "1",
-            "minValue": "1",
-            "maxValue": "2147483647",
-            "cache": "1",
-            "cycle": false
-          }
-        },
-        "number": {
-          "name": "number",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "projectionQuality": {
-          "name": "projectionQuality",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "cinemaId": {
-          "name": "cinemaId",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "hall_cinemaId_cinema_id_fk": {
-          "name": "hall_cinemaId_cinema_id_fk",
-          "tableFrom": "hall",
-          "tableTo": "cinema",
-          "columnsFrom": [
-            "cinemaId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "checkConstraints": {}
-    },
     "public.movie": {
       "name": "movie",
       "schema": "",
@@ -219,7 +89,7 @@
           "name": "favorite",
           "type": "boolean",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "imageURL": {
           "name": "imageURL",
@@ -295,8 +165,21 @@
           "primaryKey": false,
           "notNull": true
         },
+        "validated": {
+          "name": "validated",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
         "movieId": {
           "name": "movieId",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "userId": {
+          "name": "userId",
           "type": "integer",
           "primaryKey": false,
           "notNull": true
@@ -310,91 +193,6 @@
           "tableTo": "movie",
           "columnsFrom": [
             "movieId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "checkConstraints": {}
-    },
-    "public.showtime": {
-      "name": "showtime",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "integer",
-          "primaryKey": true,
-          "notNull": true,
-          "identity": {
-            "type": "always",
-            "name": "showtime_id_seq",
-            "schema": "public",
-            "increment": "1",
-            "startWith": "1",
-            "minValue": "1",
-            "maxValue": "2147483647",
-            "cache": "1",
-            "cycle": false
-          }
-        },
-        "startTime": {
-          "name": "startTime",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "endTime": {
-          "name": "endTime",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "price": {
-          "name": "price",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "movieId": {
-          "name": "movieId",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "hallId": {
-          "name": "hallId",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "showtime_movieId_movie_id_fk": {
-          "name": "showtime_movieId_movie_id_fk",
-          "tableFrom": "showtime",
-          "tableTo": "movie",
-          "columnsFrom": [
-            "movieId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        },
-        "showtime_hallId_hall_id_fk": {
-          "name": "showtime_hallId_hall_id_fk",
-          "tableFrom": "showtime",
-          "tableTo": "hall",
-          "columnsFrom": [
-            "hallId"
           ],
           "columnsTo": [
             "id"
