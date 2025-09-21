@@ -1,5 +1,8 @@
--- Category table
+DROP TABLE IF EXISTS rating;
+DROP TABLE IF EXISTS movie;
 DROP TABLE IF EXISTS category;
+
+-- Category table
 CREATE TABLE IF NOT EXISTS category
 (
     "id" SERIAL PRIMARY KEY,
@@ -8,7 +11,6 @@ CREATE TABLE IF NOT EXISTS category
 -- Category table
 
 -- Movie table
-DROP TABLE IF EXISTS movie;
 CREATE TABLE IF NOT EXISTS movie
 (
     "id" SERIAL PRIMARY KEY,
@@ -22,7 +24,6 @@ CREATE TABLE IF NOT EXISTS movie
 -- Movie table
 
 -- Rating table
-DROP TABLE IF EXISTS rating;
 CREATE TABLE IF NOT EXISTS rating
 (
     "id" SERIAL PRIMARY KEY,
