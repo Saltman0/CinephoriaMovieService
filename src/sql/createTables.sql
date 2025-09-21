@@ -28,6 +28,8 @@ CREATE TABLE IF NOT EXISTS rating
     "id" SERIAL PRIMARY KEY,
     "number" INTEGER NOT NULL,
     "description" TEXT NOT NULL,
-    "movieId" INTEGER REFERENCES movie(id) ON UPDATE NO ACTION ON DELETE CASCADE
+    "validated" BOOLEAN NOT NULL,
+    "movieId" INTEGER REFERENCES movie(id) ON UPDATE NO ACTION ON DELETE CASCADE,
+    "userId" INTEGER NOT NULL
 );
 -- Rating table
