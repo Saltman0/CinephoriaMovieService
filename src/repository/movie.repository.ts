@@ -2,37 +2,39 @@ import * as movieFactory from "../factory/movie.factory";
 import { database } from "../config/database";
 import { movie } from "../schema/movie";
 import { eq } from "drizzle-orm/sql/expressions/conditions";
+import { asc, desc } from "drizzle-orm/sql/expressions/select";
 
-export async function findMovies(cinemaId: number|null, categoryId: number|null, startDate: Date|null, endDate: Date|null) {
-    let findMoviesQuery = 'SELECT * FROM "movie"';
-
-    if (cinemaId !== null || (startDate !== null && endDate !== null)) {
-        findMoviesQuery += ' INNER JOIN "showtime" ON "showtime"."movieId" = "movie"."id"' +
-            ' INNER JOIN "hall" ON "showtime"."hallId" = "hall"."id"';
-
-        if (cinemaId !== null) {
-            findMoviesQuery += ` WHERE "hall"."cinemaId" = ${cinemaId}`;
-        }
-
-        if (startDate !== null && endDate != null) {
-            findMoviesQuery += ` WHERE "showtime"."startTime" >= ${startDate} AND "showtime"."endTime" <= ${endDate}`;
-        }
-    }
-
-    if (categoryId !== null) {
-        findMoviesQuery += ` WHERE "movie"."categoryId" = ${categoryId}`;
-    }
-
-    findMoviesQuery += ' ORDER BY "movie"."id" ASC';
-
+export async function findMovies() {
     try {
-        let result = await database.execute(findMoviesQuery);
+        return await database
+            .select()
+            .from(movie)
+            .orderBy(asc(movie.id));
+    } catch (error) {
+        throw error;
+    }
+}
 
-        if (result.rows.length === 0) {
-            return null;
-        }
+export async function findLastMovies(limit: number = 7) {
+    try {
+        return await database
+            .select()
+            .from(movie)
+            .limit(limit)
+            .orderBy(desc(movie.id));
+    } catch (error) {
+        throw error;
+    }
+}
 
-        return result.rows;
+export async function findFavoriteMovies(limit: number = 7) {
+    try {
+        return await database
+            .select()
+            .from(movie)
+            .where(eq(movie.favorite, true))
+            .limit(limit)
+            .orderBy(desc(movie.id));
     } catch (error) {
         throw error;
     }

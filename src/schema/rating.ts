@@ -5,5 +5,7 @@ export const rating = drizzle.pgTable("rating", {
     id: drizzle.integer().primaryKey().generatedAlwaysAsIdentity(),
     number: drizzle.integer().notNull(),
     description: drizzle.text().notNull(),
-    movieId: drizzle.integer().references(() => movie.id, {onDelete: "cascade"}).notNull()
+    validated: drizzle.boolean().notNull().default(false),
+    movieId: drizzle.integer().references(() => movie.id, {onDelete: "cascade"}).notNull(),
+    userId: drizzle.integer().notNull()
 });
