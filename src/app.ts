@@ -1,6 +1,7 @@
 import express, { Express } from "express";
 import cors from "cors";
 import pino from "pino";
+import categoryRoutes from "./routes/category.routes";
 import movieRoutes from "./routes/movie.routes";
 import passport from "./middleware/passport";
 
@@ -21,4 +22,5 @@ app.use(cors());
 app.use(express.json());
 app.use(passport.initialize());
 
+app.use(categoryRoutes);
 app.use(movieRoutes);
