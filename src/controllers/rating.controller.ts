@@ -3,7 +3,11 @@ import * as ratingRepository from "../repository/rating.repository";
 
 export async function getRatings(req: Request, res: Response) {
     try {
-        const ratings = await ratingRepository.findRatings();
+        let movieId: string|null = <string>req.query.movieId ?? null;
+
+        const ratings = await ratingRepository.findRatings(
+            movieId !== null ? parseInt(movieId) : null
+        );
 
         res.status(200).json(ratings);
     } catch (error) {

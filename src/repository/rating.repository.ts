@@ -4,11 +4,19 @@ import {asc} from "drizzle-orm/sql/expressions/select";
 import {rating} from "../schema/rating";
 import * as ratingFactory from "../factory/rating.factory";
 
-export async function findRatings() {
+export async function findRatings(movieId: number|null) {
     try {
+        if (movieId === null) {
+            return await database
+                .select()
+                .from(rating)
+                .orderBy(asc(rating.id));
+        }
+
         return await database
             .select()
             .from(rating)
+            .where(eq(rating.movieId, movieId))
             .orderBy(asc(rating.id));
     } catch (error) {
         throw error;
