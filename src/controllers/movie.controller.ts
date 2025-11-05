@@ -3,7 +3,11 @@ import * as movieRepository from "../repository/movie.repository";
 
 export async function getMovies(req: Request, res: Response) {
     try {
-        const movies = await movieRepository.findMovies();
+        let categoryId: string|null = <string>req.query.categoryId ?? null;
+
+        const movies = await movieRepository.findMovies(
+            categoryId !== null ? parseInt(categoryId) : null
+        );
 
         res.status(200).json(movies);
     } catch (error) {

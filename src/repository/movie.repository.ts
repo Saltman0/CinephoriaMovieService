@@ -4,8 +4,16 @@ import { movie } from "../schema/movie";
 import { eq } from "drizzle-orm/sql/expressions/conditions";
 import { asc, desc } from "drizzle-orm/sql/expressions/select";
 
-export async function findMovies() {
+export async function findMovies(categoryId: number|null) {
     try {
+        if (categoryId !== null) {
+            return await database
+                .select()
+                .from(movie)
+                .where(eq(movie.categoryId, categoryId))
+                .orderBy(asc(movie.id));
+        }
+
         return await database
             .select()
             .from(movie)
